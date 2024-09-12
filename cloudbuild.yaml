@@ -1,12 +1,15 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'gcr.io/friendly-folio-408616/hello:$COMMIT_SHA', '.']
+  args: ['build', '-t', 'gcr.io/gcp-shiva-433803/hello:$COMMIT_SHA', '.']
 
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcr.io/friendly-folio-408616/hello:$COMMIT_SHA']
+  args: ['push', 'gcr.io/gcp-shiva-433803/hello:$COMMIT_SHA']
 
 - name: 'gcr.io/cloud-builders/kubectl'
-  args: ['set', 'image', 'deployment/cicd-deploy', 'hello-sha256-1=gcr.io/friendly-folio-408616/hello:$COMMIT_SHA']
+  args: ['set', 'image', 'deployment/cicd-deploy', 'hello-sha256-1=gcr.io/gcp-shiva-433803/hello:$COMMIT_SHA']
   env:
     - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
     - 'CLOUDSDK_CONTAINER_CLUSTER=cicd-demo'
+
+options:
+  logging: 'CLOUD_LOGGING_ONLY'
